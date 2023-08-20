@@ -1,0 +1,22 @@
+{
+  "OutputFoldersPerTargetSystem": {
+    "本地计算机": [
+      "build",
+      "build-sanitizer"
+    ]
+  },
+  "ExpandedNodes": [
+    "",
+    "\\chapter03",
+    "\\chapter03\\hello_object_lib\\include",
+    "\\chapter03\\hello_object_lib\\include\\hello_object",
+    "\\chapter03\\hello_object_lib\\src",
+    "\\chapter03\\hello_shared_lib",
+    "\\chapter03\\hello_shared_lib\\include",
+    "\\chapter03\\hello_shared_lib\\include\\hello",
+    "\\chapter03\\hello_static_lib\\src",
+    "\\chapter03\\src"
+  ],
+  "SelectedNode": "\\chapter03",
+  "PreviewInSolutionExplorer": false
+}

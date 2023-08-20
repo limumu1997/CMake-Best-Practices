@@ -1,0 +1,173 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "gcc-11",
+      "description": "GCC 11 compiler",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": {
+          "type": "STRING",
+          "value": "/usr/bin/gcc-11"
+        },
+        "CMAKE_CXX_COMPILER": {
+          "type": "STRING",
+          "value": "/usr/bin/g++-11"
+        }
+      }
+    },
+    {
+      "name": "clang-13",
+      "description": "Clang 13 compiler",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": {
+          "type": "STRING",
+          "value": "/usr/bin/clang-13"
+        },
+        "CMAKE_CXX_COMPILER": {
+          "type": "STRING",
+          "value": "/usr/bin/clang++-13"
+        }
+      }
+    },
+    {
+      "name": "afl-gcc",
+      "description": "AFL GCC compiler",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": {
+          "type": "STRING",
+          "value": "/usr/bin/afl-gcc"
+        },
+        "CMAKE_CXX_COMPILER": {
+          "type": "STRING",
+          "value": "/usr/bin/afl-g++"
+        }
+      }
+    },
+    {
+      "name": "cppcheck",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_CXX_CPPCHECK": "cppcheck;--enable=warning;--inconclusive;--force;--inline-suppr"
+      }
+    },
+    {
+      "name": "ccache-env",
+      "hidden": true,
+      "environment": {
+        "CCACHE_BASEDIR": "${sourceDir}",
+        "CCACHE_SLOPPINESS": "pch_defines,time_macros"
+      }
+    },
+    {
+      "name": "clang-tidy",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--header-filter=${sourceDir}/*;-checks=-*,modernize-use-nullptr;-extra-arg=-std=c++17"
+      }
+    },
+    {
+      "name": "cpplint",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_CXX_CPPLINT": "cpplint"
+      }
+    },
+    {
+      "name": "iwyu",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_CXX_INCLUDE_WHAT_YOU_USE": "iwyu;-Xiwyu;any;-Xiwyu;iwyu;-Xiwyu"
+      }
+    },
+    {
+      "name": "lwyu",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_LINK_WHAT_YOU_USE": true
+      }
+    },
+    {
+      "name": "ci-msvc-19",
+      "displayName": "msvc 19",
+      "description": "Configuring for msvc 19",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "build",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "ci-msvc-19-sanitizer",
+      "displayName": "msvc 19",
+      "description": "Configuring for code sanitizing with msvc 19 ",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "build-sanitizer",
+      "architecture": "x64",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS": "/fsanitize=address /EHsc /Oy-",
+        "ENABLE_ADDRESS_SANITIZER_TEST": false
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "ci-msvc-debug",
+      "configurePreset": "ci-msvc-19",
+      "configuration": "Debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "ci-msvc-release",
+      "configurePreset": "ci-msvc-19",
+      "configuration": "Release",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "ci-msvc-debug-sanitizer",
+      "configurePreset": "ci-msvc-19-sanitizer",
+      "configuration": "Debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "ci-unit-tests-debug",
+      "configurePreset": "ci-msvc-19",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    }
+  ]
+}

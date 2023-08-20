@@ -1,0 +1,13 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+    {
+      "type": "dll",
+      "exe": "",
+      "project": "CMakeLists.txt",
+      "projectTarget": "ch3_hello_sharedd.dll (chapter03\\hello_shared_lib\\Debug\\ch3_hello_sharedd.dll)",
+      "name": "ch3_hello_sharedd.dll (chapter03\\hello_shared_lib\\Debug\\ch3_hello_sharedd.dll)"
+    }
+  ]
+}
